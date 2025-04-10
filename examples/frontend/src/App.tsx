@@ -1,17 +1,17 @@
 // Copyright (c), Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import React from 'react';
+import React, { useState } from 'react';
 import { ConnectButton, useCurrentAccount } from '@mysten/dapp-kit';
 import { Box, Button, Card, Container, Flex, Grid } from '@radix-ui/themes';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+
 import { CreateAllowlist } from './CreateAllowlist';
 import { Allowlist } from './Allowlist';
 import WalrusUpload from './EncryptAndUpload';
-import { useState } from 'react';
 import { CreateService } from './CreateSubscriptionService';
 import FeedsToSubscribe from './SubscriptionView';
 import { Service } from './SubscriptionService';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import { AllAllowlist } from './OwnedAllowlists';
 import { AllServices } from './OwnedSubscriptionServices';
 import Feeds from './AllowlistView';
@@ -21,7 +21,7 @@ function LandingPage() {
     <Grid columns="2" gap="4">
       <Card>
         <Flex direction="column" gap="2" align="center" style={{ height: '100%' }}>
-          <div style={{ textAlign: 'center' }}>
+          <div style={{ textAlign: 'center', color: '#000' }}>
             <h2>Allowlist Example</h2>
             <p>
               Shows how a creator can define an allowlist based access. The creator first creates an
@@ -37,15 +37,14 @@ function LandingPage() {
       </Card>
       <Card>
         <Flex direction="column" gap="2" align="center" style={{ height: '100%' }}>
-          <div style={{ textAlign: 'center' }}>
+          <div style={{ textAlign: 'center', color: '#000' }}>
             <h2>Subscription Example</h2>
             <p>
               Shows how a creator can define a subscription based access to its published files. The
-              creator defines subcription fee and how long a subscription is valid for. The creator
+              creator defines subscription fee and how long a subscription is valid for. The creator
               can then associate encrypted files to the service. Only users who have purchased a
               subscription (NFT) have access to decrypt the files, along with the condition that the
-              subscription must not have expired (i.e. the subscription creation timestamp plus the
-              TTL is smaller than the current clock time).
+              subscription must not have expired.
             </p>
           </div>
           <Link to="/subscription-example">
@@ -61,33 +60,35 @@ function App() {
   const currentAccount = useCurrentAccount();
   const [recipientAllowlist, setRecipientAllowlist] = useState<string>('');
   const [capId, setCapId] = useState<string>('');
+
   return (
-    <Container>
+    <Container style={{ backgroundColor: '#fff', color: '#000', minHeight: '100vh' }}>
       <Flex position="sticky" px="4" py="2" justify="between">
-        <h1 className="text-4xl font-bold m-4 mb-8">Seal Example Apps</h1>
-        {/* <p>TODO: add seal logo</p> */}
+        <h1 className="text-4xl font-bold m-4 mb-8">Seal Testnet By FakeNode</h1>
         <Box>
           <ConnectButton />
         </Box>
       </Flex>
-      <Card style={{ marginBottom: '2rem' }}>
-        <p>
-          1. Code is available{' '}
-          <a href="https://github.com/MystenLabs/seal/tree/main/examples">here</a>.
-        </p>
-        <p>
-          2. These examples are for Testnet only. Make sure you wallet is set to Testnet and has
-          some balance (can request from <a href="https://faucet.sui.io/">faucet.sui.io</a>).
-        </p>
-        <p>
-          3. Blobs are only stored on Walrus Testnet for 1 epoch by default, older files cannot be
-          retrieved even if you have access.
-        </p>
-        <p>
-          4. Currently only image files are supported, and the UI is minimal, designed for demo
-          purposes only!
-        </p>
+
+      <Card style={{ marginBottom: '2rem', textAlign: 'center', backgroundColor: '#fff', color: '#000' }}>
+        <img
+          src="/FakeAirdropX.png"
+          alt="Logo"
+          style={{ maxWidth: '250px', height: 'auto', margin: '0 auto 1rem' }}
+        />
+        <h2 style={{ fontSize: '1.25rem', fontWeight: '600', marginBottom: '1rem' }}>
+          Contact us
+        </h2>
+        <Flex justify="center" gap="4" mb="4">
+          <a href="https://t.me/axelit3" target="_blank" rel="noopener noreferrer">
+            <img src="/telegram-icon.svg" alt="Telegram" style={{ width: '36px' }} />
+          </a>
+          <a href="https://x.com/FakeNode_" target="_blank" rel="noopener noreferrer">
+            <img src="/x-icon.svg" alt="X" style={{ width: '36px' }} />
+          </a>
+        </Flex>
       </Card>
+
       {currentAccount ? (
         <BrowserRouter>
           <Routes>
@@ -153,7 +154,7 @@ function App() {
           </Routes>
         </BrowserRouter>
       ) : (
-        <p>Please connect your wallet to continue</p>
+        <p style={{ textAlign: 'center', fontWeight: 'bold' }}>Please connect your wallet to continue</p>
       )}
     </Container>
   );
